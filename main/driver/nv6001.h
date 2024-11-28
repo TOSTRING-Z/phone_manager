@@ -15,7 +15,7 @@
 #define COL 120 // x ↑
 #define ROW 240 // y →
 
-#define PARALLEL_LINES 8
+#define PARALLEL_LINES 1
 
 typedef void(*lcd_flush_done_cb)(void* param);
 
@@ -28,7 +28,7 @@ typedef struct {
     uint8_t databytes; //No of data in data; bit 7 = delay after set; 0xFF = end of cmds.
 } lcd_init_cmd_t;
 
-void write_line(int pl,uint16_t color);
+void write_line(int ypos,uint16_t color);
 void display_color(uint16_t color);
 void nv6001_init();
 void nv6001_lv_fb_flush(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_map);
