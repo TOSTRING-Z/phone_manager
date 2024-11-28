@@ -1,0 +1,7 @@
+build
+.vscode
+.devcontainer
+.format.py
+main/driver/test.c
+components
+dependencies.lock

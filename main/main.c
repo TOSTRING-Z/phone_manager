@@ -6,15 +6,17 @@
 #include "lv_examples.h"
 #include "nv6001.h"
 
+#define DRAW_BUF_SIZE (LV_HOR_RES_MAX)
+
 void app_main(void) {
     // 初始化显示
     lv_init();
     // lv_port_disp_init();
     nv6001_init();
     static lv_disp_buf_t draw_buf_dsc_1;
-    static lv_color_t buf_2_1[ROW * 40];
-    static lv_color_t buf_2_2[ROW * 40];
-    lv_disp_buf_init(&draw_buf_dsc_1, buf_2_1, buf_2_2, ROW * 40);
+    DRAM_ATTR static lv_color_t buf_2_1[DRAW_BUF_SIZE];
+    DRAM_ATTR static lv_color_t buf_2_2[DRAW_BUF_SIZE];
+    lv_disp_buf_init(&draw_buf_dsc_1, buf_2_1, buf_2_2, DRAW_BUF_SIZE);
     static lv_disp_drv_t disp_drv;
     lv_disp_drv_init(&disp_drv);
     disp_drv.hor_res = LV_VER_RES_MAX;
@@ -23,9 +25,10 @@ void app_main(void) {
     disp_drv.buffer = &draw_buf_dsc_1;
     lv_disp_drv_register(&disp_drv);
     lv_obj_t *label = lv_label_create(lv_scr_act(),NULL);
-    lv_label_set_text(label, "hello");
+    lv_label_set_text(label, "yeah");
+    // lv_demo_music();
     while (1) {
         lv_task_handler();
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }

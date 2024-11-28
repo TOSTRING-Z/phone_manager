@@ -1,4 +1,12 @@
+# phone_manager
 ```shell
+# 注意修改成自己的IP和端口号
+git config --global http.proxy socks5 127.0.0.1:7890
+git config --global https.proxy socks5 127.0.0.1:7890
+
+git config --global http.proxy http://127.0.0.1:7890 
+git config --global https.proxy http://127.0.0.1:7890
+
 # esp32
 & set IDF_PATH='C:\Users\Administrator\Desktop\esp-idf\v5.2.3\esp-idf'
 & 'c:\Espressif\tools\python_env\idf5.2_py3.11_env\Scripts\python.exe' 'c:\Users\Administrator\Desktop\esp-idf\v5.2.3\esp-idf\tools\idf_monitor.py' -p COM6 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 'c:\Users\Administrator\Desktop\Document\EPS32s3\phone_clock\phone_clock\build\phone_clock.elf'
@@ -42,4 +50,4 @@ $env:PATH += ";C:\Users\Administrator\Desktop\esp-idf\esp-idf-v5.2.1\tools"
 & 'c:\Espressif\tools\python_env\idf5.2_py3.11_env\Scripts\python.exe' 'C:\Users\Administrator\Desktop\esp-idf\v5.2.3\esp-idf\tools\idf.py' build
 & 'c:\Espressif\tools\python_env\idf5.2_py3.11_env\Scripts\python.exe' 'C:\Users\Administrator\Desktop\esp-idf\v5.2.3\esp-idf\tools\idf.py' --port COM6 flash
 
-```# phone_manager
+```

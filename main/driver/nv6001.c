@@ -150,7 +150,7 @@ void nv6001_flush(int ypos, uint8_t *data, size_t len)
 	// for (int y = ypos; y < ypos + PARALLEL_LINES - 1; y++)
 	// {
 
-	vTaskSuspendAll();
+	// vTaskSuspendAll();
 	esp_lcd_panel_io_tx_param(lcd_io_handle,
 							  LCD_CMD_CASET,
 							  (uint8_t[]){
@@ -181,7 +181,7 @@ void nv6001_flush(int ypos, uint8_t *data, size_t len)
 	// }
 	esp_lcd_panel_io_tx_param(lcd_io_handle, -1, data, len);
 	// }
-	xTaskResumeAll();
+	// xTaskResumeAll();
 	return;
 }
 
@@ -275,9 +275,9 @@ void nv6001_init()
 void write_line_map(int ypos, size_t x1, size_t x2, uint8_t *color_map)
 {
 	// 尝试获取互斥量
-	xMutex = xSemaphoreCreateMutex(); // 创建互斥量
-	if (xSemaphoreTake(xMutex, portMAX_DELAY) == pdTRUE)
-	{
+	// xMutex = xSemaphoreCreateMutex(); // 创建互斥量
+	// if (xSemaphoreTake(xMutex, portMAX_DELAY) == pdTRUE)
+	// {
 		size_t array_size = COL * sizeof(uint16_t);
 		uint8_t *data = (uint8_t *)malloc(array_size);
 		memset(data, 0xFF, array_size);
@@ -289,24 +289,24 @@ void write_line_map(int ypos, size_t x1, size_t x2, uint8_t *color_map)
 			{
 				uint16_t color = color_map[1] << 8 | color_map[0];
 				// ESP_LOGI(TAG, "write_line_map color_map: %d", color);
-				data[x * 2] = color;
-				data[x * 2 + 1] = color >> 8;
+				data[x * 2] = color >> 8;
+				data[x * 2 + 1] = color;
 				color_map += 2;
 			}
 		}
 		nv6001_flush(ypos, data, array_size);
 		free(data);
 		// 退出临界区
-		xSemaphoreGive(xMutex);
-	}
+	// 	xSemaphoreGive(xMutex);
+	// }
 }
 
 // 刷新显示缓冲区的回调函数
 void nv6001_lv_fb_flush(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_map)
 {
-	// ESP_LOGI(TAG, "nv6001_lv_fb_flush");
-	// ESP_LOGI(TAG, "Display y: %d, %d", area->y1, area->y2);
-	// ESP_LOGI(TAG, "Display x: %d, %d", area->x1, area->x2);
+	ESP_LOGI(TAG, "nv6001_lv_fb_flush");
+	ESP_LOGI(TAG, "Display y: %d, %d", area->y1, area->y2);
+	ESP_LOGI(TAG, "Display x: %d, %d", area->x1, area->x2);
 
 	for (int ypos = area->y1; ypos <= area->y2; ypos += 1)
 		write_line_map(ypos, area->x1, area->x2, color_map);

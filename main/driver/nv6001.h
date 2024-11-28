@@ -15,7 +15,7 @@
 #define COL 120 // x ↑
 #define ROW 240 // y →
 
-#define PARALLEL_LINES 1
+#define PARALLEL_LINES (ROW/10)
 
 typedef void(*lcd_flush_done_cb)(void* param);
 
