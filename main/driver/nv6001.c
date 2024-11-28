@@ -19,6 +19,8 @@
 
 spi_device_handle_t spi;
 
+SemaphoreHandle_t xMutex; // 创建互斥量
+
 // lcd操作句柄
 static esp_lcd_panel_io_handle_t lcd_io_handle = NULL;
 
@@ -269,7 +271,6 @@ void nv6001_init()
 	display_color(0xFFFF);
 }
 
-SemaphoreHandle_t xMutex; // 创建互斥量
 
 void write_line_map(int ypos, size_t x1, size_t x2, uint8_t *color_map)
 {
@@ -289,7 +290,7 @@ void write_line_map(int ypos, size_t x1, size_t x2, uint8_t *color_map)
 				uint16_t color = color_map[1] << 8 | color_map[0];
 				// ESP_LOGI(TAG, "write_line_map color_map: %d", color);
 				data[x * 2] = color;
-				data[x * 2 + 1] = color;
+				data[x * 2 + 1] = color >> 8;
 				color_map += 2;
 			}
 		}
