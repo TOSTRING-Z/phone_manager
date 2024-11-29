@@ -3,6 +3,6 @@ build
 .devcontainer
 .format.py
 main/driver/test.c
-components
 dependencies.lock
 记录.md
+components/v5.2.3/

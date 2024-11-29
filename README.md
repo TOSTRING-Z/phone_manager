@@ -8,3 +8,4 @@
 
 >buff设置 DRAM 240
 
+>DISP_BUF_SIZE 120 * 40

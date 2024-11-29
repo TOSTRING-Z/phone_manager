@@ -209,13 +209,9 @@ void write_line(int ypos, uint16_t color)
 // 填充屏幕颜色
 void display_color(uint16_t color)
 {
-	for (size_t ypos = 0; ypos < 120; ypos += PARALLEL_LINES)
+	for (size_t ypos = 0; ypos < COL * 2; ypos += PARALLEL_LINES)
 	{
 		write_line(ypos, color);
-	}
-	for (size_t ypos = 120; ypos < ROW; ypos += PARALLEL_LINES)
-	{
-		write_line(ypos, 0x0000);
 	}
 }
 
@@ -304,9 +300,9 @@ void write_line_map(int ypos, size_t x1, size_t x2, uint8_t *color_map)
 // 刷新显示缓冲区的回调函数
 void nv6001_lv_fb_flush(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_map)
 {
-	ESP_LOGI(TAG, "nv6001_lv_fb_flush");
-	ESP_LOGI(TAG, "Display y: %d, %d", area->y1, area->y2);
-	ESP_LOGI(TAG, "Display x: %d, %d", area->x1, area->x2);
+	// ESP_LOGI(TAG, "nv6001_lv_fb_flush");
+	// ESP_LOGI(TAG, "Display y: %d, %d", area->y1, area->y2);
+	// ESP_LOGI(TAG, "Display x: %d, %d", area->x1, area->x2);
 
 	for (int ypos = area->y1; ypos <= area->y2; ypos += 1)
 		write_line_map(ypos, area->x1, area->x2, color_map);
